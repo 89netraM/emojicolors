@@ -33,7 +33,7 @@ fn make_kvp(elem_ref: ElementRef) -> Option<(String, Info)> {
 struct Info {
 	pub average: Vec<u8>,
 	pub primary: Vec<u8>,
-	pub secondary: Vec<u8>,
+	pub secondary: Option<Vec<u8>>,
 }
 
 impl Info {
@@ -81,7 +81,7 @@ impl Info {
 		Some(Info {
 			average: average.channels().iter().map(|f| *f as u8).collect(),
 			primary: primary?.channels().iter().map(|c| *c).collect(),
-			secondary: secondary?.channels().iter().map(|c| *c).collect(),
+			secondary: secondary.map(|s| s.channels().iter().map(|c| *c).collect()),
 		})
 	}
 }
